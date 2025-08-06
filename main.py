@@ -23,6 +23,10 @@ class FaceLockApp:
         self.root.withdraw()
 
         self.system_controller = SystemController(logger=logger)
+
+        logger.info("Ensuring USB storage service is enabled on startup as a failsafe.")
+        self.system_controller.set_usb_storage_state(enable=True)
+
         if not self.system_controller.is_admin():
             logger.error("FATAL: Application must be run with administrator privileges.")
             messagebox.showerror("Permission Denied",
