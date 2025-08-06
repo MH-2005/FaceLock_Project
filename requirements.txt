@@ -1,0 +1,10 @@
+# Core Libraries
+opencv-python
+bcrypt
+cryptography
+
+# GUI and System Interaction
+pystray
+Pillow
+plyer
+pywin32
