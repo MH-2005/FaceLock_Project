@@ -35,26 +35,17 @@ class SystemController:
             ctypes.windll.user32.LockWorkStation()
             return True
         except Exception as e:
-            if self.logger:
-                self.logger.error(f"Failed to lock workstation: {e}")
+            if self.logger: self.logger.error(f"Failed to lock workstation: {e}")
             return False
 
     def _run_command(self, command_list):
-        if self.logger:
-            self.logger.info(f"Executing command: {' '.join(command_list)}")
-
+        if self.logger: self.logger.info(f"Executing command: {' '.join(command_list)}")
         try:
             result = subprocess.run(command_list, capture_output=True, text=True, check=True,
                                     creationflags=subprocess.CREATE_NO_WINDOW)
-
-            # Log the output for debugging purposes
-            if result.stdout:
-                self.logger.info(f"Command STDOUT: {result.stdout.strip()}")
-            if result.stderr:
-                self.logger.warning(f"Command STDERR: {result.stderr.strip()}")
-
+            if result.stdout: self.logger.info(f"Command STDOUT: {result.stdout.strip()}")
+            if result.stderr: self.logger.warning(f"Command STDERR: {result.stderr.strip()}")
             return result
-
         except (subprocess.CalledProcessError, FileNotFoundError) as e:
             if self.logger:
                 error_output = e.stderr if hasattr(e, 'stderr') else str(e)
@@ -62,13 +53,9 @@ class SystemController:
             return None
 
     def get_usb_devices(self):
-        if not self.devcon_path:
-            return []
-
+        if not self.devcon_path: return []
         result = self._run_command([self.devcon_path, "find", "*USB*"])
-        if not result:
-            return []
-
+        if not result: return []
         devices = []
         for line in result.stdout.splitlines():
             if line.strip() and not line.startswith("No matching devices"):
@@ -79,22 +66,15 @@ class SystemController:
         return devices
 
     def set_device_state_by_id(self, device_id, enable=True):
-        if not self.devcon_path:
-            return False
-
+        if not self.devcon_path: return False
         action = "enable" if enable else "disable"
         command = [self.devcon_path, action, f"@{device_id}"]
-
         result = self._run_command(command)
-
         if result and result.stdout:
-            # A more reliable check for success
             if "disabled" in result.stdout.lower() or "enabled" in result.stdout.lower():
                 if "No matching devices" not in result.stdout:
                     return True
-
-        if self.logger:
-            self.logger.error(f"Failed to change state for device {device_id}.")
+        if self.logger: self.logger.error(f"Failed to change state for device {device_id}.")
         return False
 
     def set_usb_storage_state(self, enable=True):
@@ -109,6 +89,19 @@ class SystemController:
                 self.logger.info(f"USBSTOR service has been {status}.")
             return True
         except (PermissionError, FileNotFoundError, OSError) as e:
-            if self.logger:
-                self.logger.error(f"Failed to change USBSTOR state: {e}")
+            if self.logger: self.logger.error(f"Failed to change USBSTOR state: {e}")
             return False
+
+    # --- NEW RESET FUNCTION ---
+    def reset_all_usb_ports(self):
+        self.logger.info("--- Starting Full USB Port Reset ---")
+
+        # Step 1: Reset the USB Storage Service
+        self.set_usb_storage_state(enable=True)
+
+        # Step 2: Forcefully re-enable all USB devices with devcon
+        if self.devcon_path:
+            command = [self.devcon_path, "enable", "*USB*"]
+            self._run_command(command)
+
+        self.logger.info("--- Full USB Port Reset Complete ---")

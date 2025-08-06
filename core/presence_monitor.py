@@ -93,8 +93,13 @@ class PresenceMonitor(threading.Thread):
         self.last_presence_state = True
         self.no_face_start_time = None
 
+        # --- NEW: Startup grace period ---
+        self.start_time = None
+        self.grace_period_seconds = 5
+
     def run(self):
         self.is_running = True
+        self.start_time = time.time()  # Record the start time
         if self.logger: self.logger.info(f"Presence monitor thread started with {self.detector.__class__.__name__}.")
 
         cap = cv2.VideoCapture(self.camera_index)
@@ -108,6 +113,13 @@ class PresenceMonitor(threading.Thread):
             if not ret:
                 if self.logger: self.logger.warning("Failed to grab frame. Retrying...")
                 time.sleep(1)
+                continue
+
+            # --- NEW: Check if grace period is active ---
+            if time.time() - self.start_time < self.grace_period_seconds:
+                # During the grace period, we assume the user is present
+                self._update_state(is_present=True)
+                time.sleep(0.5)  # Check less frequently during startup
                 continue
 
             face_present = self.detector.detect(frame)
