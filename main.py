@@ -15,7 +15,6 @@ from gui.login_window import LoginWindow
 from gui.main_window import MainWindow
 import reset_locks
 
-
 logger = setup_logging()
 SETTINGS_FILE = "config/app_settings.json"
 PASSWORD_FILE = "config/password.json"
@@ -38,7 +37,13 @@ def wait_for_user_login():
             on_unlock()
         return user32.DefWindowProcW(hwnd, msg_type, wparam, lparam)
 
-    wndproc = ctypes.WINFUNCTYPE(wintypes.LRESULT, wintypes.HWND, wintypes.UINT, wintypes.WPARAM, wintypes.LPARAM)(window_proc)
+    wndproc = ctypes.WINFUNCTYPE(
+        wintypes.LRESULT,
+        wintypes.HWND,
+        wintypes.UINT,
+        wintypes.WPARAM,
+        wintypes.LPARAM
+    )(window_proc)
 
     wc = wintypes.WNDCLASSW()
     wc.lpfnWndProc = wndproc
@@ -151,17 +156,43 @@ class FaceLockApp:
             self.system_controller.set_usb_storage_state(enable=False)
         else:
             logger.info("Applying STANDARD LOCK: Disabling non-whitelisted devices.")
-            protected_keywords = ["root hub", "host controller", "camera", "webcam", "keyboard", "mouse", "bluetooth"]
+            protected_keywords = [
+                "root hub", "host controller", "camera", "webcam", "keyboard", "mouse",
+                "bluetooth", "intel", "dell", "hp", "lenovo", "usb composite",
+                "ucsi", "input device", "video", "monitor", "display", "audio",
+                "composite", "controller", "internal", "builtin"
+            ]
             whitelisted_ids = self.main_window.whitelisted_devices if self.main_window else set()
             all_usb_devices = self.system_controller.get_usb_devices()
 
             for device in all_usb_devices:
-                device_id, device_name = device.get('id'), device.get('name', '').lower()
+                device_id = device.get('id')
+                device_name = device.get('name', '').lower().strip()
+
+                # --- فیلترهای ایمن برای حذف داده‌های نامعتبر ---
+                if not device_id or len(device_id) == 0:
+                    continue
+
+                # حذف خطوطی که خروجی کنسول هستند
+                if ("matching device(s)" in device_id or
+                        "device(s)" in device_id or
+                        "found" in device_id or
+                        "disabled" in device_id or
+                        "enabled" in device_id or
+                        len(device_id) > 200):
+                    continue
+
+                # فقط دستگاه‌های با پیشوند معتبر
+                if not (device_id.startswith("USB\\") or
+                        device_id.startswith("SWD\\") or
+                        device_id.startswith("ACPI\\")):
+                    continue
+
                 is_protected = any(keyword in device_name for keyword in protected_keywords)
                 is_whitelisted = device_id in whitelisted_ids
 
                 if not is_protected and not is_whitelisted:
-                    logger.info(f"Disabling non-essential device: {device.get('name')}")
+                    logger.info(f"Disabling non-essential device: {device_name}")
                     self.system_controller.set_device_state_by_id(device_id, enable=False)
 
     def start_monitoring(self):
