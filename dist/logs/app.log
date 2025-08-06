@@ -1,0 +1,179 @@
+2025-08-06 15:43:15,693 - INFO - [logger_setup:40] - ==================================================
+2025-08-06 15:43:15,693 - INFO - [logger_setup:41] - Logger initialized successfully.
+2025-08-06 15:43:15,693 - INFO - [logger_setup:42] - ==================================================
+2025-08-06 15:43:15,874 - ERROR - [system_controller:30] - devcon.exe not found in the application's root directory.
+2025-08-06 15:43:15,874 - INFO - [system_controller:97] - --- Starting Full USB Port Reset ---
+2025-08-06 15:43:15,874 - ERROR - [system_controller:92] - Failed to change USBSTOR state: [WinError 5] Access is denied
+2025-08-06 15:43:15,874 - INFO - [system_controller:107] - --- Full USB Port Reset Complete ---
+2025-08-06 15:43:15,874 - ERROR - [main:82] - FATAL: Application must be run with administrator privileges.
+2025-08-06 15:43:25,041 - INFO - [logger_setup:40] - ==================================================
+2025-08-06 15:43:25,041 - INFO - [logger_setup:41] - Logger initialized successfully.
+2025-08-06 15:43:25,041 - INFO - [logger_setup:42] - ==================================================
+2025-08-06 15:43:25,172 - ERROR - [system_controller:30] - devcon.exe not found in the application's root directory.
+2025-08-06 15:43:25,172 - INFO - [system_controller:97] - --- Starting Full USB Port Reset ---
+2025-08-06 15:43:25,186 - INFO - [system_controller:89] - USBSTOR service has been Enabled.
+2025-08-06 15:43:25,186 - INFO - [system_controller:107] - --- Full USB Port Reset Complete ---
+2025-08-06 15:43:25,418 - INFO - [main:115] - Password hash has been updated.
+2025-08-06 15:43:25,418 - INFO - [main:107] - Password file not found. Created with default 'admin'.
+2025-08-06 15:43:34,139 - INFO - [system_controller:97] - --- Starting Full USB Port Reset ---
+2025-08-06 15:43:34,166 - INFO - [system_controller:89] - USBSTOR service has been Enabled.
+2025-08-06 15:43:34,167 - INFO - [system_controller:107] - --- Full USB Port Reset Complete ---
+2025-08-06 15:43:36,339 - INFO - [main:143] - Main window displayed.
+2025-08-06 15:43:39,510 - ERROR - [presence_monitor:18] - Cascade file not found: assets\haarcascade_frontalface_default.xml
+2025-08-06 15:43:39,510 - ERROR - [main:214] - Could not start monitoring: assets\haarcascade_frontalface_default.xml
+2025-08-06 15:44:24,668 - INFO - [presence_monitor:103] - Presence monitor thread started with HaarCascadeDetector.
+2025-08-06 15:44:49,447 - WARNING - [main:149] - Absence detected. Locking workstation and securing ports.
+2025-08-06 15:44:49,447 - INFO - [main:158] - Applying STANDARD LOCK: Disabling non-whitelisted devices.
+2025-08-06 15:44:49,447 - WARNING - [presence_monitor:153] - Absence detected for 10 seconds. Signaling to lock.
+2025-08-06 15:44:56,163 - INFO - [presence_monitor:143] - Presence DETECTED.
+2025-08-06 15:45:15,152 - WARNING - [main:149] - Absence detected. Locking workstation and securing ports.
+2025-08-06 15:45:15,152 - INFO - [main:158] - Applying STANDARD LOCK: Disabling non-whitelisted devices.
+2025-08-06 15:45:15,152 - WARNING - [presence_monitor:153] - Absence detected for 10 seconds. Signaling to lock.
+2025-08-06 15:45:21,318 - INFO - [presence_monitor:143] - Presence DETECTED.
+2025-08-06 15:45:31,606 - WARNING - [main:149] - Absence detected. Locking workstation and securing ports.
+2025-08-06 15:45:31,606 - INFO - [main:158] - Applying STANDARD LOCK: Disabling non-whitelisted devices.
+2025-08-06 15:45:31,606 - WARNING - [presence_monitor:153] - Absence detected for 10 seconds. Signaling to lock.
+2025-08-06 15:45:33,448 - INFO - [presence_monitor:143] - Presence DETECTED.
+2025-08-06 15:46:05,042 - WARNING - [main:149] - Absence detected. Locking workstation and securing ports.
+2025-08-06 15:46:05,042 - INFO - [main:158] - Applying STANDARD LOCK: Disabling non-whitelisted devices.
+2025-08-06 15:46:05,042 - WARNING - [presence_monitor:153] - Absence detected for 10 seconds. Signaling to lock.
+2025-08-06 15:46:14,670 - INFO - [presence_monitor:143] - Presence DETECTED.
+2025-08-06 15:46:33,483 - WARNING - [main:149] - Absence detected. Locking workstation and securing ports.
+2025-08-06 15:46:33,484 - INFO - [main:158] - Applying STANDARD LOCK: Disabling non-whitelisted devices.
+2025-08-06 15:46:33,484 - WARNING - [presence_monitor:153] - Absence detected for 10 seconds. Signaling to lock.
+2025-08-06 15:46:38,738 - INFO - [presence_monitor:143] - Presence DETECTED.
+2025-08-06 15:47:33,693 - INFO - [main:115] - Password hash has been updated.
+2025-08-06 15:47:36,778 - INFO - [presence_monitor:130] - Presence monitor thread stopped and camera released.
+2025-08-06 15:47:50,142 - INFO - [presence_monitor:103] - Presence monitor thread started with HaarCascadeDetector.
+2025-08-06 15:47:53,933 - INFO - [presence_monitor:130] - Presence monitor thread stopped and camera released.
+2025-08-06 15:48:29,279 - INFO - [presence_monitor:103] - Presence monitor thread started with HaarCascadeDetector.
+2025-08-06 15:48:34,428 - INFO - [presence_monitor:130] - Presence monitor thread stopped and camera released.
+2025-08-06 15:48:45,360 - INFO - [main:231] - Shutdown sequence initiated.
+2025-08-06 15:48:45,360 - WARNING - [main:221] - Monitoring is not running.
+2025-08-06 15:48:45,360 - INFO - [system_controller:97] - --- Starting Full USB Port Reset ---
+2025-08-06 15:48:45,360 - INFO - [system_controller:89] - USBSTOR service has been Enabled.
+2025-08-06 15:48:45,360 - INFO - [system_controller:107] - --- Full USB Port Reset Complete ---
+2025-08-06 15:48:45,360 - INFO - [main:238] - Application has been shut down gracefully.
+2025-08-06 15:49:20,970 - INFO - [logger_setup:40] - ==================================================
+2025-08-06 15:49:20,970 - INFO - [logger_setup:41] - Logger initialized successfully.
+2025-08-06 15:49:20,970 - INFO - [logger_setup:42] - ==================================================
+2025-08-06 15:49:21,113 - INFO - [system_controller:97] - --- Starting Full USB Port Reset ---
+2025-08-06 15:49:21,129 - INFO - [system_controller:89] - USBSTOR service has been Enabled.
+2025-08-06 15:49:21,129 - INFO - [system_controller:42] - Executing command: C:\Users\MH\Desktop\FaceLock_Project\dist\FaceLock\devcon.exe enable *USB*
+2025-08-06 15:49:21,189 - INFO - [system_controller:46] - Command STDOUT: SWD\PRINTENUM\{82EF8ED0-02A0-493C-BA2B-02AF079F1090}        : Enabled
+USB\VID_2717&PID_5013\5&F8BA1D8&0&1                         : Enabled
+ACPI\USBC000\1                                              : Enabled
+USB\ROOT_HUB30\4&20A42E89&0&0                               : Enabled
+USB\VID_8087&PID_0025\5&F8BA1D8&0&4                         : Enabled
+USB\VID_0BDA&PID_5657&MI_00\6&C5B3B43&0&0000                : Enabled
+USB\VID_0BDA&PID_5657\200901010001                          : Enabled
+7 device(s) are enabled.
+2025-08-06 15:49:21,189 - INFO - [system_controller:107] - --- Full USB Port Reset Complete ---
+2025-08-06 15:49:25,214 - INFO - [system_controller:97] - --- Starting Full USB Port Reset ---
+2025-08-06 15:49:25,214 - INFO - [system_controller:89] - USBSTOR service has been Enabled.
+2025-08-06 15:49:25,230 - INFO - [system_controller:42] - Executing command: C:\Users\MH\Desktop\FaceLock_Project\dist\FaceLock\devcon.exe enable *USB*
+2025-08-06 15:49:25,293 - INFO - [system_controller:46] - Command STDOUT: SWD\PRINTENUM\{82EF8ED0-02A0-493C-BA2B-02AF079F1090}        : Enabled
+USB\VID_2717&PID_5013\5&F8BA1D8&0&1                         : Enabled
+ACPI\USBC000\1                                              : Enabled
+USB\ROOT_HUB30\4&20A42E89&0&0                               : Enabled
+USB\VID_8087&PID_0025\5&F8BA1D8&0&4                         : Enabled
+USB\VID_0BDA&PID_5657&MI_00\6&C5B3B43&0&0000                : Enabled
+USB\VID_0BDA&PID_5657\200901010001                          : Enabled
+7 device(s) are enabled.
+2025-08-06 15:49:25,293 - INFO - [system_controller:107] - --- Full USB Port Reset Complete ---
+2025-08-06 15:49:25,592 - INFO - [system_controller:42] - Executing command: C:\Users\MH\Desktop\FaceLock_Project\dist\FaceLock\devcon.exe find *USB*
+2025-08-06 15:49:25,627 - INFO - [system_controller:46] - Command STDOUT: SWD\PRINTENUM\{82EF8ED0-02A0-493C-BA2B-02AF079F1090}        : Canon LBP6650/3470
+USB\VID_2717&PID_5013\5&F8BA1D8&0&1                         : USB Input Device
+ACPI\USBC000\1                                              : UCM-UCSI ACPI Device
+USB\ROOT_HUB30\4&20A42E89&0&0                               : USB Root Hub (USB 3.0)
+USB\VID_8087&PID_0025\5&F8BA1D8&0&4                         : Intel(R) Wireless Bluetooth(R)
+USB\VID_0BDA&PID_5657&MI_00\6&C5B3B43&0&0000                : Integrated Webcam
+USB\VID_0BDA&PID_5657\200901010001                          : USB Composite Device
+7 matching device(s) found.
+2025-08-06 15:49:27,028 - INFO - [main:143] - Main window displayed.
+2025-08-06 15:49:32,497 - INFO - [system_controller:42] - Executing command: C:\Users\MH\Desktop\FaceLock_Project\dist\FaceLock\devcon.exe find *USB*
+2025-08-06 15:49:32,604 - INFO - [system_controller:46] - Command STDOUT: SWD\PRINTENUM\{82EF8ED0-02A0-493C-BA2B-02AF079F1090}        : Canon LBP6650/3470
+USB\VID_2717&PID_5013\5&F8BA1D8&0&1                         : USB Input Device
+ACPI\USBC000\1                                              : UCM-UCSI ACPI Device
+USB\ROOT_HUB30\4&20A42E89&0&0                               : USB Root Hub (USB 3.0)
+USB\VID_8087&PID_0025\5&F8BA1D8&0&4                         : Intel(R) Wireless Bluetooth(R)
+USB\VID_0BDA&PID_5657&MI_00\6&C5B3B43&0&0000                : Integrated Webcam
+USB\VID_0BDA&PID_5657\200901010001                          : USB Composite Device
+7 matching device(s) found.
+2025-08-06 15:49:33,629 - INFO - [system_controller:42] - Executing command: C:\Users\MH\Desktop\FaceLock_Project\dist\FaceLock\devcon.exe find *USB*
+2025-08-06 15:49:33,677 - INFO - [system_controller:46] - Command STDOUT: SWD\PRINTENUM\{82EF8ED0-02A0-493C-BA2B-02AF079F1090}        : Canon LBP6650/3470
+USB\VID_2717&PID_5013\5&F8BA1D8&0&1                         : USB Input Device
+ACPI\USBC000\1                                              : UCM-UCSI ACPI Device
+USB\ROOT_HUB30\4&20A42E89&0&0                               : USB Root Hub (USB 3.0)
+USB\VID_8087&PID_0025\5&F8BA1D8&0&4                         : Intel(R) Wireless Bluetooth(R)
+USB\VID_0BDA&PID_5657&MI_00\6&C5B3B43&0&0000                : Integrated Webcam
+USB\VID_0BDA&PID_5657\200901010001                          : USB Composite Device
+7 matching device(s) found.
+2025-08-06 15:49:35,119 - INFO - [system_controller:42] - Executing command: C:\Users\MH\Desktop\FaceLock_Project\dist\FaceLock\devcon.exe find *USB*
+2025-08-06 15:49:35,183 - INFO - [system_controller:46] - Command STDOUT: SWD\PRINTENUM\{82EF8ED0-02A0-493C-BA2B-02AF079F1090}        : Canon LBP6650/3470
+USB\VID_2717&PID_5013\5&F8BA1D8&0&1                         : USB Input Device
+ACPI\USBC000\1                                              : UCM-UCSI ACPI Device
+USB\ROOT_HUB30\4&20A42E89&0&0                               : USB Root Hub (USB 3.0)
+USB\VID_8087&PID_0025\5&F8BA1D8&0&4                         : Intel(R) Wireless Bluetooth(R)
+USB\VID_0BDA&PID_5657&MI_00\6&C5B3B43&0&0000                : Integrated Webcam
+USB\VID_0BDA&PID_5657\200901010001                          : USB Composite Device
+7 matching device(s) found.
+2025-08-06 15:49:36,626 - INFO - [system_controller:42] - Executing command: C:\Users\MH\Desktop\FaceLock_Project\dist\FaceLock\devcon.exe find *USB*
+2025-08-06 15:49:36,674 - INFO - [system_controller:46] - Command STDOUT: SWD\PRINTENUM\{82EF8ED0-02A0-493C-BA2B-02AF079F1090}        : Canon LBP6650/3470
+USB\VID_2717&PID_5013\5&F8BA1D8&0&1                         : USB Input Device
+ACPI\USBC000\1                                              : UCM-UCSI ACPI Device
+USB\ROOT_HUB30\4&20A42E89&0&0                               : USB Root Hub (USB 3.0)
+USB\VID_8087&PID_0025\5&F8BA1D8&0&4                         : Intel(R) Wireless Bluetooth(R)
+USB\VID_0BDA&PID_5657&MI_00\6&C5B3B43&0&0000                : Integrated Webcam
+USB\VID_0BDA&PID_5657\200901010001                          : USB Composite Device
+7 matching device(s) found.
+2025-08-06 15:49:38,914 - INFO - [presence_monitor:103] - Presence monitor thread started with HaarCascadeDetector.
+2025-08-06 15:49:56,758 - WARNING - [main:149] - Absence detected. Locking workstation and securing ports.
+2025-08-06 15:49:56,758 - INFO - [main:158] - Applying STANDARD LOCK: Disabling non-whitelisted devices.
+2025-08-06 15:49:56,758 - INFO - [system_controller:42] - Executing command: C:\Users\MH\Desktop\FaceLock_Project\dist\FaceLock\devcon.exe find *USB*
+2025-08-06 15:49:56,816 - INFO - [system_controller:46] - Command STDOUT: SWD\PRINTENUM\{82EF8ED0-02A0-493C-BA2B-02AF079F1090}        : Canon LBP6650/3470
+USB\VID_2717&PID_5013\5&F8BA1D8&0&1                         : USB Input Device
+ACPI\USBC000\1                                              : UCM-UCSI ACPI Device
+USB\ROOT_HUB30\4&20A42E89&0&0                               : USB Root Hub (USB 3.0)
+USB\VID_8087&PID_0025\5&F8BA1D8&0&4                         : Intel(R) Wireless Bluetooth(R)
+USB\VID_0BDA&PID_5657&MI_00\6&C5B3B43&0&0000                : Integrated Webcam
+USB\VID_0BDA&PID_5657\200901010001                          : USB Composite Device
+7 matching device(s) found.
+2025-08-06 15:49:56,816 - INFO - [main:195] - Disabling non-essential device: canon lbp6650/3470
+2025-08-06 15:49:56,825 - INFO - [system_controller:42] - Executing command: C:\Users\MH\Desktop\FaceLock_Project\dist\FaceLock\devcon.exe disable @SWD\PRINTENUM\{82EF8ED0-02A0-493C-BA2B-02AF079F1090}
+2025-08-06 15:49:56,916 - INFO - [system_controller:46] - Command STDOUT: SWD\PRINTENUM\{82EF8ED0-02A0-493C-BA2B-02AF079F1090}        : Disabled
+1 device(s) disabled.
+2025-08-06 15:49:56,916 - WARNING - [presence_monitor:153] - Absence detected for 10 seconds. Signaling to lock.
+2025-08-06 15:50:06,544 - INFO - [presence_monitor:143] - Presence DETECTED.
+2025-08-06 15:51:07,278 - WARNING - [main:149] - Absence detected. Locking workstation and securing ports.
+2025-08-06 15:51:07,278 - INFO - [main:158] - Applying STANDARD LOCK: Disabling non-whitelisted devices.
+2025-08-06 15:51:07,278 - INFO - [system_controller:42] - Executing command: C:\Users\MH\Desktop\FaceLock_Project\dist\FaceLock\devcon.exe find *USB*
+2025-08-06 15:51:07,341 - INFO - [system_controller:46] - Command STDOUT: SWD\PRINTENUM\{82EF8ED0-02A0-493C-BA2B-02AF079F1090}        : Canon LBP6650/3470
+USB\VID_2717&PID_5013\5&F8BA1D8&0&1                         : USB Input Device
+ACPI\USBC000\1                                              : UCM-UCSI ACPI Device
+USB\ROOT_HUB30\4&20A42E89&0&0                               : USB Root Hub (USB 3.0)
+USB\VID_8087&PID_0025\5&F8BA1D8&0&4                         : Intel(R) Wireless Bluetooth(R)
+USB\VID_0BDA&PID_5657&MI_00\6&C5B3B43&0&0000                : Integrated Webcam
+USB\VID_0BDA&PID_5657\200901010001                          : USB Composite Device
+7 matching device(s) found.
+2025-08-06 15:51:07,341 - INFO - [main:195] - Disabling non-essential device: canon lbp6650/3470
+2025-08-06 15:51:07,341 - INFO - [system_controller:42] - Executing command: C:\Users\MH\Desktop\FaceLock_Project\dist\FaceLock\devcon.exe disable @SWD\PRINTENUM\{82EF8ED0-02A0-493C-BA2B-02AF079F1090}
+2025-08-06 15:51:07,416 - INFO - [system_controller:46] - Command STDOUT: SWD\PRINTENUM\{82EF8ED0-02A0-493C-BA2B-02AF079F1090}        : Disabled
+1 device(s) disabled.
+2025-08-06 15:51:07,416 - WARNING - [presence_monitor:153] - Absence detected for 10 seconds. Signaling to lock.
+2025-08-06 15:51:12,646 - INFO - [presence_monitor:143] - Presence DETECTED.
+2025-08-06 15:51:16,261 - INFO - [main:231] - Shutdown sequence initiated.
+2025-08-06 15:51:16,694 - INFO - [presence_monitor:130] - Presence monitor thread stopped and camera released.
+2025-08-06 15:51:16,702 - INFO - [system_controller:97] - --- Starting Full USB Port Reset ---
+2025-08-06 15:51:16,702 - INFO - [system_controller:89] - USBSTOR service has been Enabled.
+2025-08-06 15:51:16,702 - INFO - [system_controller:42] - Executing command: C:\Users\MH\Desktop\FaceLock_Project\dist\FaceLock\devcon.exe enable *USB*
+2025-08-06 15:51:16,783 - INFO - [system_controller:46] - Command STDOUT: SWD\PRINTENUM\{82EF8ED0-02A0-493C-BA2B-02AF079F1090}        : Enabled
+USB\VID_2717&PID_5013\5&F8BA1D8&0&1                         : Enabled
+ACPI\USBC000\1                                              : Enabled
+USB\ROOT_HUB30\4&20A42E89&0&0                               : Enabled
+USB\VID_8087&PID_0025\5&F8BA1D8&0&4                         : Enabled
+USB\VID_0BDA&PID_5657&MI_00\6&C5B3B43&0&0000                : Enabled
+USB\VID_0BDA&PID_5657\200901010001                          : Enabled
+7 device(s) are enabled.
+2025-08-06 15:51:16,783 - INFO - [system_controller:107] - --- Full USB Port Reset Complete ---
+2025-08-06 15:51:16,783 - INFO - [main:238] - Application has been shut down gracefully.
