@@ -2,6 +2,7 @@ import ctypes
 import os
 import sys
 import subprocess
+import winreg
 
 
 class SystemController:
@@ -18,11 +19,9 @@ class SystemController:
         if getattr(sys, 'frozen', False):
             application_path = os.path.dirname(sys.executable)
         else:
-            application_path = os.path.dirname(os.path.abspath(__file__))
+            application_path = os.path.dirname(os.path.abspath(sys.argv[0]))
 
-        # We assume devcon.exe is in the parent directory of 'core'
-        base_path = os.path.join(application_path, '..')
-        path_to_check = os.path.join(base_path, 'devcon.exe')
+        path_to_check = os.path.join(application_path, 'devcon.exe')
 
         if os.path.exists(path_to_check):
             return os.path.normpath(path_to_check)
@@ -59,36 +58,18 @@ class SystemController:
             return False
 
         action = "enable" if enable else "disable"
-        command = [self.devcon_path, action, f"@{device_id}"]
+        command = f'"{self.devcon_path}" {action} "@{device_id}"'
 
         result = self._run_command(command)
-        return result.returncode == 0 and "disabled" in result.stdout or "enabled" in result.stdout
+        return result.returncode == 0 and ("disabled" in result.stdout.lower() or "enabled" in result.stdout.lower())
 
-    def get_pnp_devices(self, device_class="Keyboard"):
-        command = f"Get-PnpDevice -Class {device_class} | Select-Object InstanceId, Name, Present | Format-List"
-        full_command = ['PowerShell', '-Command', command]
-
-        result = self._run_command(full_command)
-        devices = []
-        if result.returncode == 0:
-            content = result.stdout.strip().replace('\r', '')
-            entries = content.split('\n\n')
-            for entry in entries:
-                device = {}
-                for line in entry.split('\n'):
-                    if ':' in line:
-                        key, value = line.split(':', 1)
-                        key = key.strip().lower().replace(' ', '_')
-                        device[key] = value.strip()
-                if device.get('present', '').lower() == 'true':
-                    devices.append(device)
-        return devices
-
-    def set_pnp_device_state(self, instance_id, enable=True):
-        action = "Enable-PnpDevice" if enable else "Disable-PnpDevice"
-        escaped_id = instance_id.replace('"', '\\"')
-        command = f'{action} -InstanceId "{escaped_id}" -Confirm:$false'
-        full_command = ['PowerShell', '-Command', command]
-
-        result = self._run_command(full_command)
-        return result.returncode == 0
+    def set_usb_storage_state(self, enable=True):
+        key_path = r"SYSTEM\CurrentControlSet\Services\USBSTOR"
+        value = 3 if enable else 4
+        try:
+            key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, key_path, 0, winreg.KEY_WRITE)
+            winreg.SetValueEx(key, "Start", 0, winreg.REG_DWORD, value)
+            winreg.CloseKey(key)
+            return True
+        except Exception:
+            return False
