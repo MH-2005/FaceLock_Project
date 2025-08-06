@@ -7,7 +7,7 @@ import os
 from utils.logger_setup import setup_logging
 from core.security_manager import SecurityManager
 from core.system_controller import SystemController
-from core.presence_monitor import PresenceMonitor
+from core.presence_monitor import PresenceMonitor, HaarCascadeDetector, CustomSkinDetector
 
 from gui.login_window import LoginWindow
 from gui.main_window import MainWindow
@@ -16,14 +16,18 @@ logger = setup_logging()
 SETTINGS_FILE = "config/app_settings.json"
 PASSWORD_FILE = "config/password.json"
 
+
 class FaceLockApp:
     def __init__(self):
         self.root = tk.Tk()
         self.root.withdraw()
 
-        self.system_controller = SystemController()
+        self.system_controller = SystemController(logger=logger)
         if not self.system_controller.is_admin():
-            logger.warning("Application not running with admin privileges. Hardware control may fail.")
+            logger.error("FATAL: Application must be run with administrator privileges.")
+            messagebox.showerror("Permission Denied",
+                                 "This application requires administrator privileges. Please restart as admin.")
+            sys.exit(1)
 
         self.settings = self._load_settings()
         self.current_password_hash = self._load_or_create_password_hash()
@@ -36,7 +40,7 @@ class FaceLockApp:
             with open(SETTINGS_FILE, 'r') as f:
                 return json.load(f)
         except (FileNotFoundError, json.JSONDecodeError):
-            return {'lockdown_level': 'standard'}
+            return {'lockdown_level': 'standard', 'detection_engine': 'haar'}
 
     def _load_or_create_password_hash(self):
         try:
@@ -65,6 +69,9 @@ class FaceLockApp:
         self.root.mainloop()
 
     def on_login_success(self):
+        logger.info("Login successful. Re-enabling any locked services.")
+        self.system_controller.set_usb_storage_state(enable=True)
+
         self.main_window = MainWindow(
             on_exit=self.shutdown,
             on_password_change=self._save_password_hash,
@@ -75,13 +82,10 @@ class FaceLockApp:
         self.main_window.start_monitoring_callback = self.start_monitoring
         self.main_window.stop_monitoring_callback = self.stop_monitoring
         self.main_window.show()
-        logger.info("Login successful. Main window displayed.")
+        logger.info("Main window displayed.")
 
     def _handle_presence_change(self, is_present):
         if is_present:
-            logger.info("Presence re-detected.")
-            if self.settings.get('lockdown_level') == 'total':
-                self.system_controller.set_usb_storage_state(enable=True)
             return
 
         logger.warning("Absence detected. Locking workstation and securing ports.")
@@ -111,27 +115,43 @@ class FaceLockApp:
         if self.presence_monitor and self.presence_monitor.is_alive():
             logger.warning("Monitoring is already running.")
             return
+
         try:
-            self.presence_monitor = PresenceMonitor(on_presence_change=self._handle_presence_change, lock_delay=10, logger=logger)
+            engine_choice = self.settings.get('detection_engine', 'haar')
+            if engine_choice == 'skin':
+                detector = CustomSkinDetector(logger=logger)
+            else:
+                detector = HaarCascadeDetector(logger=logger)
+
+            self.presence_monitor = PresenceMonitor(
+                detector_engine=detector,
+                on_presence_change=self._handle_presence_change,
+                lock_delay=10,
+                logger=logger
+            )
             self.presence_monitor.start()
             if self.main_window:
-                self.main_window.notification_manager.show_success("Monitoring Started", "System is now being monitored.")
+                self.main_window.update_monitoring_ui(is_active=True)
+                self.main_window.notification_manager.show_success("Monitoring Started",
+                                                                   "System is now being monitored.")
+
         except (FileNotFoundError, ValueError) as e:
             logger.error(f"Could not start monitoring: {e}")
-            messagebox.showerror("Error", f"Could not start monitoring. Ensure asset files are correct.")
+            messagebox.showerror("Error", f"Could not start monitoring. Ensure asset files are correct and readable.")
             if self.main_window:
-                self.main_window.is_monitoring = False
-                self.main_window.toggle_monitoring()
+                self.main_window.update_monitoring_ui(is_active=False)
 
     def stop_monitoring(self):
         if not self.presence_monitor or not self.presence_monitor.is_alive():
             logger.warning("Monitoring is not running.")
             return
+
         self.presence_monitor.stop()
         self.presence_monitor.join(timeout=2.0)
         self.presence_monitor = None
         logger.info("Monitoring has been stopped by the user.")
         if self.main_window:
+            self.main_window.update_monitoring_ui(is_active=False)
             self.main_window.notification_manager.show_info("Monitoring Stopped", "System is no longer monitored.")
 
     def shutdown(self):
@@ -139,11 +159,14 @@ class FaceLockApp:
         self.stop_monitoring()
         if self.main_window and self.main_window.tray_icon:
             self.main_window.tray_icon.stop()
-        if self.settings.get('lockdown_level') == 'total':
-            self.system_controller.set_usb_storage_state(enable=True)
+
+        logger.info("Ensuring USB ports are enabled on exit.")
+        self.system_controller.set_usb_storage_state(enable=True)
+
         self.root.quit()
         logger.info("Application has been shut down gracefully.")
         sys.exit(0)
+
 
 if __name__ == "__main__":
     app = FaceLockApp()

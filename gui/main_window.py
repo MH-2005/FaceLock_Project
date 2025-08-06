@@ -36,8 +36,8 @@ class MainWindow(tk.Toplevel):
 
     def setup_window(self):
         self.title("FaceLock Control Panel")
-        self.geometry("800x650")
-        self.minsize(700, 550)
+        self.geometry("800x700")
+        self.minsize(700, 600)
         self.configure(bg=Config.LIGHT_GRAY)
         self.protocol("WM_DELETE_WINDOW", self.minimize_to_tray)
 
@@ -71,6 +71,19 @@ class MainWindow(tk.Toplevel):
                                       relief='flat', padx=20, pady=10)
         self.start_button.pack(pady=10)
 
+        engine_frame = ttk.LabelFrame(parent_frame, text="Detection Engine", padding=(20, 10))
+        engine_frame.pack(fill='x', padx=20, pady=10)
+
+        self.detection_engine = tk.StringVar(value=self.settings.get('detection_engine', 'haar'))
+
+        haar_rb = ttk.Radiobutton(engine_frame, text="Haar Cascade (Recommended)",
+                                  variable=self.detection_engine, value='haar', command=self.save_settings)
+        haar_rb.pack(anchor='w', padx=5, pady=2)
+
+        skin_rb = ttk.Radiobutton(engine_frame, text="Custom Skin-Tone Detector",
+                                  variable=self.detection_engine, value='skin', command=self.save_settings)
+        skin_rb.pack(anchor='w', padx=5, pady=2)
+
         lockdown_frame = ttk.LabelFrame(parent_frame, text="Lockdown Level", padding=(20, 10))
         lockdown_frame.pack(fill='x', padx=20, pady=10)
         self.lockdown_level = tk.StringVar(value=self.settings.get('lockdown_level', 'standard'))
@@ -84,7 +97,8 @@ class MainWindow(tk.Toplevel):
         total_rb.pack(anchor='w', padx=5, pady=2)
 
         pwd_frame = ttk.LabelFrame(parent_frame, text="Change Password", padding=(20, 10))
-        pwd_frame.pack(fill='x', padx=20, pady=20)
+        pwd_frame.pack(fill='x', padx=20, pady=10)
+
         ttk.Label(pwd_frame, text="Old Password:").grid(row=0, column=0, padx=5, pady=5, sticky='w')
         self.old_pwd_entry = ttk.Entry(pwd_frame, show="*", width=30)
         self.old_pwd_entry.grid(row=0, column=1, padx=5, pady=5)
@@ -106,10 +120,11 @@ class MainWindow(tk.Toplevel):
 
     def save_settings(self):
         self.settings['lockdown_level'] = self.lockdown_level.get()
+        self.settings['detection_engine'] = self.detection_engine.get()
         try:
             with open("config/app_settings.json", "w") as f:
                 json.dump(self.settings, f, indent=4)
-            self.notification_manager.show_success("Settings Saved", "Lockdown level has been updated.")
+            self.notification_manager.show_success("Settings Saved", "Your settings have been updated.")
         except Exception as e:
             messagebox.showerror("Error", f"Could not save settings: {e}", parent=self)
 
@@ -192,15 +207,20 @@ class MainWindow(tk.Toplevel):
         if self.is_monitoring:
             if self.start_monitoring_callback:
                 self.start_monitoring_callback()
-                self.start_button.config(text="⏸️ Stop Monitoring", bg=Config.ERROR_COLOR)
-                self.status_label.config(text="● Active", fg='#90EE90')
-                self.tray_icon.update_icon_status(active=True)
         else:
             if self.stop_monitoring_callback:
                 self.stop_monitoring_callback()
-                self.start_button.config(text="▶️ Start Monitoring", bg=Config.SUCCESS_COLOR)
-                self.status_label.config(text="● Inactive", fg='#ffcccc')
-                self.tray_icon.update_icon_status(active=False)
+
+    def update_monitoring_ui(self, is_active):
+        self.is_monitoring = is_active
+        if self.is_monitoring:
+            self.start_button.config(text="⏸️ Stop Monitoring", bg=Config.ERROR_COLOR)
+            self.status_label.config(text="● Active", fg='#90EE90')
+            self.tray_icon.update_icon_status(active=True)
+        else:
+            self.start_button.config(text="▶️ Start Monitoring", bg=Config.SUCCESS_COLOR)
+            self.status_label.config(text="● Inactive", fg='#ffcccc')
+            self.tray_icon.update_icon_status(active=False)
 
     def toggle_startup_task(self):
         is_enabled = self.run_on_startup_var.get()

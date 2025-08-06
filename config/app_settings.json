@@ -1,0 +1,4 @@
+{
+    "lockdown_level": "standard",
+    "detection_engine": "haar"
+}
